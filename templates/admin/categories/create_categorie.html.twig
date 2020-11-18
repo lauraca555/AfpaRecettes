@@ -1,0 +1,14 @@
+{% extends "base.html.twig" %}
+{% block title %}Administration Categories{% endblock %}
+
+{% block body %}
+<div class="container">
+<h1>Creér une nouvelle categorie</h1>
+{{ form_start(formCategorie) }}
+{{form_rest(formCategorie)}}
+            <a href="{{path('admin_create')}}" class="btn btn-secondary my-3">Annuler</a>
+            <input type="submit" class="btn btn-success my-3"  value="Enregistrer">
+{{ form_end(formCategorie) }}
+</div>
+
+{% endblock %}

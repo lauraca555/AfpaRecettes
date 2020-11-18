@@ -1,0 +1,18 @@
+{{ form_start(formRecette) }}
+    <div class="row">
+        <div class="col-md-3">
+            {{ form_row(formRecette.title)}}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(formRecette.categorie)}}
+            <a href="{{path('admin_create_categorie')}}">+ Ajouter categorie</a>
+        </div>
+        <div class="col-md-3">
+            {{ form_row(formRecette.imageFile)}}
+        </div>
+    </div>
+        
+    {{form_rest(formRecette)}}
+            <a href="{{path('admin_index')}}" class="btn btn-secondary my-3">Annuler</a>
+            <input type="submit" class="btn btn-success my-3"  value="Enregistrer">
+{{ form_end(formRecette) }}

@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ recette.title }}{% endblock %}
+
+{% block body %}
+    <div class="container text-center">
+        
+
+        <div class="container text-center">
+                <div class="jumbotron py-3">
+                    <h2>{{ recette.title }}</h2>
+                </div>
+                <img src="{{ vich_uploader_asset(recette, 'imageFile') }}" alt="{{ recette.imageName }}" /> 
+
+                <dl class="row">
+                    <dt class="col-sm-4 my-3 text-sm-right">Couverts:</dt>
+                    <dd class="col-sm-8 my-3 text-sm-left" >{{ recette.convives }}</dd>
+                    <dt class="col-sm-4 my-3 text-sm-right">Temps de preparation:</dt>
+                    <dd class="col-sm-8 my-3 text-sm-left">{{ recette.temps }}</dd>
+                <dl>                
+                
+                <div class="text-justify m-3">{{ recette.preparation }}</div>   
+                {% if is_granted('ROLE_ADMIN',app.user) %}
+                    <div class="text-justify m-3">
+                        <a class="text-center btn btn-success" href="{{ path('admin_edit', {id: recette.id}) }} ">Editer la recette</a>
+                    </div> 
+                {% endif %} 
+                   
+                  
+        </div>
+        
+{% endblock %}

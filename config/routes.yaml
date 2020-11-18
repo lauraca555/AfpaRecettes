@@ -1,0 +1,14 @@
+
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+
+#index:
+#    path: /
+#    controller: App\Controller\HomeController::index
+
+
+#recypy:
+#    path: /recettes
+#    controller: App\Controller\DefaultController::recipy

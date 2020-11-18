@@ -1,0 +1,40 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block body %}
+<div class="container">
+   <h1 class="text-center"> Bienvenue sur ma page des recettes </h1> 
+   <div class="container text-center">
+        <div class="row d-flex justify-content-center">
+            {% for recette in recettes %}
+                       
+            <div class="col-8 card mt-5 ">
+                {% if recette.imageName %}
+                    <img class="mt-3"src="{{ vich_uploader_asset(recette, 'imageFile') }}" alt="{{ recette.imageName }}" />
+                {% else %}
+                    <img class="mt-3"src="{{ asset('images/recettes/error-1349562_960_720.webp')}}" alt="{{recette.imageName}}" />
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ recette.title}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ recette.createdAd|format_datetime()}}</h6>
+                    <p class="card-text">{{recette.resumer}}</p>
+                    <a href="{{ path('recette_show', {id: recette.id}) }}" class="card-link">Voir la recette</a>
+                </div>
+                
+            </div>
+            
+            
+            
+                {% if is_granted('ROLE_ADMIN',app.user) %}
+                    <div class="row mt-3 col-8 justify-content-center">
+                            <a class="btn btn-success" href="{{ path('admin_edit', {id: recette.id}) }} ">Editer la recette</a>
+                    </div>     
+                {% endif %}
+            
+
+            {% endfor %}
+        </div>
+    </div>
+</div>    
+{% endblock %}
