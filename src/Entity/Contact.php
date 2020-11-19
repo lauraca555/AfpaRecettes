@@ -1,12 +1,18 @@
 <?php
 
 namespace App\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 
 class Contact 
 {
-
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(min = 20)
+     */
     private string $nom;
+
     private string $prenom;
     private string $email;
     private string $message;
@@ -14,9 +20,7 @@ class Contact
     
 
 
-    /**
-     * Get the value of nom
-     */ 
+     
     public function getNom()
     {
         return $this->nom;

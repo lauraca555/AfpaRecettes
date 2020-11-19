@@ -18,14 +18,14 @@ class ContactType extends AbstractType
         $builder
             ->add('nom', TextType::class, [
                 "label" => "Nom",
-                "required" => true,
+                "required" => false,
                 "attr" => [
                     "placeholder" => "Nom"
                 ]                
             ])
             ->add('prenom', TextType::class, [
                 "label" => "Nom",
-                "required" => true,
+                "required" => false,
                 "attr" => [
                     "placeholder" => "Prenom"
                 ]                
@@ -33,12 +33,14 @@ class ContactType extends AbstractType
             
             ->add('email', EmailType::class, [
                 "label" => "Email",
-                "required" => true,
+                "required" => false,
                 "attr" => [
                 "placeholder" => "Saisir votre mail"
                 ]
             ])
-            ->add('message', TextareaType::class, []) 
+            ->add('message', TextareaType::class, [
+                "required" => false
+            ]) 
             
         ;
     }
