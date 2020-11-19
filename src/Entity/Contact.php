@@ -9,7 +9,7 @@ class Contact
 {
     /**
      * @Assert\NotBlank
-     * @Assert\Length(min = 20)
+     * 
      */
     private string $nom;
 

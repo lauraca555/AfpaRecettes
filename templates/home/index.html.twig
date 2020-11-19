@@ -6,6 +6,11 @@
 <div class="container">
    <h1 class="text-center"> Bienvenue sur ma page des recettes </h1> 
    <div class="container text-center">
+   {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+            {{ message }}
+            </div>
+        {% endfor %}
         <div class="row d-flex justify-content-center">
             {% for recette in recettes %}
                        
