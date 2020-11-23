@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -33,6 +35,16 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Recipy::class, mappedBy="createdBy",cascade={"persist", "remove"}))
+     */
+    private $recipies;
+
+    public function __construct()
+    {
+        $this->recipies = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -105,5 +117,35 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|Recipy[]
+     */
+    public function getRecipies(): Collection
+    {
+        return $this->recipies;
+    }
+
+    public function addRecipy(Recipy $recipy): self
+    {
+        if (!$this->recipies->contains($recipy)) {
+            $this->recipies[] = $recipy;
+            $recipy->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecipy(Recipy $recipy): self
+    {
+        if ($this->recipies->removeElement($recipy)) {
+            // set the owning side to null (unless already changed)
+            if ($recipy->getCreatedBy() === $this) {
+                $recipy->setCreatedBy(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -56,7 +56,7 @@
                         <a class="nav-link text-white" href="{{ path('app_logout')}}">Se déconnecter</a>
                     
                     {% else %}
-                        <a class="nav-link text-white" href="{{ path('app_login')}}">Se connecter</a>
+                        <div class="d-inline-flex align-items-center"><a class="nav-link text-white" href="{{ path('app_login')}}">Se connecter</a><span class="text-white"> | </span><a class="nav-link text-white" href="{{ path('register')}}">Créer un compte</a></div>
                                             
                     {% endif %}
                 

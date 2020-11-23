@@ -2,14 +2,17 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\User;
 use App\Entity\Recipy;
 use App\Form\RecetteType;
 use App\Repository\RecipyRepository;
 use Doctrine\ORM\EntityManagerInterface;
+
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 
 class AdminRecetteController extends AbstractController
     { 
@@ -36,20 +39,31 @@ class AdminRecetteController extends AbstractController
         /**
          * @Route ("/create", name="admin_create")
          */
+
         public function create(Request $request){
             $recette = new Recipy();
+            
+            $recette->setCreatedBy($this->getUser() ); 
+            
+
             $form = $this->createForm(RecetteType::class, $recette);
             $form->handleRequest($request);
 
             if($form->isSubmitted() && $form->isValid())
             {
+                    
+                    
                     $this->em->persist($recette);
+                    
+                    
                     $this->em->flush();
+
                     $this->addFlash(
                         'success',
                         "Votre recette a été enregistré"
                     );
-                    return $this->redirectToRoute('admin_index', [], 301);
+                    
+                    return $this->redirectToRoute('index', [], 301);
             }
 
             return $this->render('admin/create.html.twig', [
@@ -74,7 +88,7 @@ class AdminRecetteController extends AbstractController
                         'success',
                         "Votre recette a bien été mise à jours"
                     );
-                    return $this->redirectToRoute('admin_index', [], 301);
+                    return $this->redirectToRoute('index', [], 301);
             }
 
             return $this->render('admin/edit.html.twig', [
@@ -99,7 +113,7 @@ class AdminRecetteController extends AbstractController
             $this->em->remove($recette);
             $this->em->flush();
 
-            return $this->redirectToRoute('admin_index', [], 301);
+            return $this->redirectToRoute('index', [], 301);
 
         }
                 
