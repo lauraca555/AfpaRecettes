@@ -9,12 +9,22 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * @ORM\Entity(repositoryClass=RecipyRepository::class)
  * @ORM\Entity
  * @Vich\Uploadable
  * @UniqueEntity("title", message="Ce nom de recette existe déjà.")
+ * @ApiResource(
+ *  normalizationContext = {
+ *      "groups" = {"read:recette"}
+ *   },
+ *  collectionOperations={"get"},
+ *  itemOperations={"get"}
+ * )
  */
 class Recipy
 {
@@ -22,6 +32,7 @@ class Recipy
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"read:recette"})
      */
     private $id;
 
@@ -35,6 +46,7 @@ class Recipy
      *      allowEmptyString = false
      * )
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read:recette"})
      */
     private $title;
 
@@ -46,12 +58,14 @@ class Recipy
     /**
      * @Assert\NotBlank(message = "Indiquez le temps necessaire.")
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read:recette"})
      */
     private $temps;
 
     /**
      * @Assert\NotBlank(message = "Renseigner la preparation.")
      * @ORM\Column(type="text")
+     * @Groups({"read:recette"})
      */
     private $preparation;
 
@@ -63,6 +77,7 @@ class Recipy
      *      notInRangeMessage = "Le nombre de personnes doit être comprise entre {{ min }}et  {{ max }}",
      * )
      * @ORM\Column(type="integer")
+     * @Groups({"read:recette"})
      */
     private $convives;
 

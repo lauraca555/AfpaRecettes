@@ -40,6 +40,8 @@ class RegisterController extends AbstractController
                 'success',
                 "Votre compte a bien été crée."
             );
+
+            // Redirecting to account after create account 
             return $this->redirectToRoute('account', [], 301);
 
             

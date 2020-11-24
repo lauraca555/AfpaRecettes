@@ -7,6 +7,7 @@ use App\Entity\Recipy;
 use App\Form\RecetteType;
 use App\Repository\RecipyRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Authorization\AccessDecisionManager;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,9 +25,10 @@ class AdminRecetteController extends AbstractController
             $this->em = $em; 
             $this->repository = $repository;  
         }
+        
 
         /**
-        * @Route ("/admin/", name="admin_index") 
+        * @Route ("/admin", name="admin_index") 
         */ 
         public function indexAdmin():Response
         {
@@ -41,9 +43,8 @@ class AdminRecetteController extends AbstractController
          */
 
         public function create(Request $request){
-            $recette = new Recipy();
-            
-            $recette->setCreatedBy($this->getUser() ); 
+            $recette = new Recipy();            
+             
             
 
             $form = $this->createForm(RecetteType::class, $recette);
@@ -52,7 +53,7 @@ class AdminRecetteController extends AbstractController
             if($form->isSubmitted() && $form->isValid())
             {
                     
-                    
+                    $recette->setCreatedBy($this->getUser() );
                     $this->em->persist($recette);
                     
                     
@@ -63,7 +64,17 @@ class AdminRecetteController extends AbstractController
                         "Votre recette a été enregistré"
                     );
                     
-                    return $this->redirectToRoute('index', [], 301);
+                    // Redirecting to account after valid recipy creation according to roles
+                    if($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN'))
+                    {
+                      return $this->redirectToRoute('admin_index', [], 301);  
+                    } 
+                    else
+                    {
+                        return $this->redirectToRoute('index', [], 301);  
+                      }
+
+                    
             }
 
             return $this->render('admin/create.html.twig', [
@@ -88,6 +99,7 @@ class AdminRecetteController extends AbstractController
                         'success',
                         "Votre recette a bien été mise à jours"
                     );
+                    
                     return $this->redirectToRoute('index', [], 301);
             }
 

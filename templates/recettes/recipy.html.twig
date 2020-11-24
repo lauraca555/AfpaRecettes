@@ -12,7 +12,10 @@
                     <h2>{{ recette.title }}</h2>
                 </div>
                 <img src="{{ vich_uploader_asset(recette, 'imageFile') }}" alt="{{ recette.imageName }}" /> 
-
+                <div class="text-justify m-3">Categorie : {{ categorie }}</div>
+                <div class="text-justify m-3">Editeur de la recette : {{ user }}</div>                
+                
+                
                 <dl class="row">
                     <dt class="col-sm-4 my-3 text-sm-right">Couverts:</dt>
                     <dd class="col-sm-8 my-3 text-sm-left" >{{ recette.convives }}</dd>

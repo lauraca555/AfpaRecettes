@@ -13,7 +13,20 @@ class AccountController extends AbstractController
      */
     public function index(): Response
     {
+        
         return $this->render('account/index.html.twig', [
+            'controller_name' => 'AccountController',
+        ]);
+
+    }
+
+    /**
+     * @Route("/compte_admin", name="admin_account")
+     */
+    public function index_Admin(): Response
+    {
+        
+        return $this->render('admin/account/index.html.twig', [
             'controller_name' => 'AccountController',
         ]);
     }

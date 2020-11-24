@@ -66,6 +66,11 @@ class RecetteType extends AbstractType
                     "label"=> "Image de la recette",
                     "required" => false,
             ])
+            ->add('categorie', EntityType::class,[
+                "label" => "Choix de catégorie",
+                "class" => Categorie::class,
+                "choice_label" => "nom"
+                ])
             
             
             

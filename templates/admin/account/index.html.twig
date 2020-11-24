@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compte{% endblock %}
+
+{% block body %}
+<div class="container row">
+    
+    <div class= "col-4">
+    
+        <ul class="list-group">
+            <li class="list-group-item"><a href="{{path('admin_index')}}">Recettes</a></li>
+            <li class="list-group-item"><a href="{{path('admin_categories_index')}}">Categories</a></li>
+            <li class="list-group-item">Utilisateurs</li>            
+        </ul>
+    </div>
+    <div class= "col-8">
+        <h1>Mon compte</h1>
+        <ul>
+            <li> -- Modifier le mode de passe </li>
+            <li>-- Créer une recette</li>
+            <li>-- Editer les recettes</li>
+            <li>-- voir la liste de recettes</li>
+        </ul
+    </div>
+    <p>Bienvenu sur votre espace utilisateur <span class="text-info">{{ app.user.username }}</span></p>
+
+    <hr>
+   
+</div>
+{% endblock %}
